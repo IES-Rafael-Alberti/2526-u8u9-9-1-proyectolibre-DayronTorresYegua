@@ -1,0 +1,15 @@
+{
+  "sourceFile": "ejemplo_tareas.csv",
+  "errors": [
+    {
+      "lineNumber": 5,
+      "rawLine": "MALFORMADA;solo-4-campos;PENDING;LOW",
+      "message": "Formato invalido: se esperaban 5 campos separados por ';'"
+    },
+    {
+      "lineNumber": 6,
+      "rawLine": "Otra;status_mal;DONE;LOW;Pepe",
+      "message": "Formato invalido: se esperaban 5 campos separados por ';'"
+    }
+  ]
+}

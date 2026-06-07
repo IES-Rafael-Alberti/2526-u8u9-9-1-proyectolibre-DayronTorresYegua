@@ -31,4 +31,7 @@ tasks.run {
 
 tasks.dokkaHtml {
     outputDirectory.set(layout.buildDirectory.dir("dokka"))
+    dokkaSourceSets.configureEach {
+        suppressInheritedMembers.set(true)
+    }
 }
