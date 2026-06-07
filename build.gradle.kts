@@ -1,5 +1,7 @@
 plugins {
-    kotlin("jvm") version "2.3.0"
+    kotlin("jvm") version "1.9.24"
+    application
+    id("org.jetbrains.dokka") version "1.9.20"
 }
 
 group = "org.iesra"
@@ -10,13 +12,23 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+    implementation("com.h2database:h2:2.2.224")
+    implementation("org.mongodb:mongodb-driver-sync:5.1.2")
+    implementation("ch.qos.logback:logback-classic:1.5.6")
+}
+
+application {
+    mainClass.set("org.iesra.app.MainKt")
 }
 
 kotlin {
     jvmToolchain(21)
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks.run {
+    standardInput = System.`in`
+}
+
+tasks.dokkaHtml {
+    outputDirectory.set(layout.buildDirectory.dir("dokka"))
 }
