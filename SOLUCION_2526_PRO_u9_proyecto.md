@@ -50,18 +50,16 @@
 - **Colecciones usadas:** 
     - `List<Task>` en `TaskService.listTasks()` y `SqlTaskRepository.findAll()` — inmutable. `MutableList<ProcessingError>` en `TaskFileProcessor.process()` para acumular errores dinámicamente.
   
-      https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/sql/SqlTaskRepository.kt#L53-L69
+      https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/sql/SqlTaskRepository.kt#L53-L69
 
 - **Principios SOLID aplicados:**
   - **SRP:** `TaskValidator` solo valida, `TaskService` solo negocio, `SqlTaskRepository` solo BD.
   - **DIP:** `TaskService` depende de interfaces, no de implementaciones. 
   
-    https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/service/TaskService.kt#L10-L12
-
 - **Patrones de diseño:** 
   - **Repository:** `TaskRepository` → `SqlTaskRepository`. Desacopla persistencia de negocio. 
   
-    https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/TaskRepository.kt#L9-L22
+    https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/TaskRepository.kt#L1-L28
   - **DAO (Data Access Object):** `SqlTaskRepository` actúa como DAO encapsulando el acceso a la base de datos H2, separando la lógica de persistencia de la lógica de negocio.
 
 ## 4. Persistencia
@@ -73,7 +71,7 @@
 - **Lectura/escritura:** `TaskFileProcessor.process()` lee con `readLines()`. `TaskFileExporter.export()` escribe con `bufferedWriter()`. 
 - **Clase responsable:** 
 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/file/TaskFileProcessor.kt#L1-L119
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/file/TaskFileProcessor.kt#L1-L118
 - **Errores controlados:** Fichero inexistente -> `IllegalArgumentException`. Líneas inválidas -> se saltan y registran en MongoDB + JSON.
 
 ### MongoDB
@@ -97,7 +95,7 @@ https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYe
 - **Operaciones realizadas:** Inserción con `insertOne()`. Sin consultas/actualizaciones/borrados. 
 - **Clase responsable:** 
 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/mongo/MongoTaskHistoryRepository.kt#L1-L45
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/mongo/MongoTaskHistoryRepository.kt#L1-L44
 
 ### Base de datos relacional
 
@@ -106,10 +104,10 @@ https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYe
 - **Tablas y relaciones:** `assignees(id PK, name UNIQUE)`, `tasks(id PK, title, description, status, priority, assignee_id FK -> assignees)`.
 - **Operaciones CRUD:** Completo (create, read, update, delete individual, delete all). 
 
-  https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/sql/SqlTaskRepository.kt#L1-L140
+  https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/sql/SqlTaskRepository.kt#L1-L140
 - **Consultas parametrizadas:** Todas con `PreparedStatement`. 
 
-   https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/sql/SqlTaskRepository.kt#L38-L51
+   https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/validator/TaskValidator.kt#L10-L11
 - **Gestión de conexión y cierre:** Cada operación abre/cierra con `connectionProvider().use { conn -> ... }`.
 
 ## 5. Validaciones y errores
@@ -173,8 +171,10 @@ Gestor de tareas en consola. Entidades: `Task`, `TaskService`, `TaskRepository`.
 
 Las dos clases principales son `Task` (data class con 6 propiedades, inmutable) y `TaskService` (9 métodos públicos, depende de interfaces). Objetos singleton: `TaskValidator`, `Schema`, `H2Database`, `AppConfig`, `NoOpTaskHistoryLogger`.
 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/model/Task.kt#L1-L20
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/service/TaskService.kt#L1-L133
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/model/Task.kt#L1-L20
+
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/service/TaskService.kt#L1-L133
+
 ### 9.3. Encapsulación y visibilidad
 
 `Task` usa `val` (inmutable, sin setters), modificaciones por `copy()`. `TaskService` recibe dependencias como `private val` en el constructor. `TaskFileProcessor` oculta `tryParse()` y `escapeJson()` como privados.
@@ -183,7 +183,7 @@ https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYe
 
 `List<Task>` en `TaskService.listTasks()` y `SqlTaskRepository.findAll()` — inmutable, adecuada para consultas de solo lectura. Internamente se usa `MutableList` para construir resultados.
 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/sql/SqlTaskRepository.kt#L53-L69
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/sql/SqlTaskRepository.kt#L53-L69
 
 ### 9.5. Genéricos
 
@@ -193,39 +193,40 @@ No se usan porque hay un solo tipo de tarea, posible mejora a futuro aplicar gen
 
 `TaskRepository` (interfaz) define el contrato CRUD; `SqlTaskRepository` la implementa. `TaskHistoryLogger` (interfaz) con dos implementaciones. Ventaja: polimorfismo.
 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/TaskRepository.kt#L1-L28
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/TaskRepository.kt#L1-L28
 ### 9.7. Expresiones regulares
 
 Título: `^[\\p{L}0-9][\\p{L}0-9 _\\-]{1,98}[\\p{L}0-9]$`. Asignee: `^[\\p{L}][\\p{L} '.\\-]{1,58}[\\p{L}]$`. Implementadas en 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/validator/TaskValidator.kt#L10-L11
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/validator/TaskValidator.kt#L10-L11
 
 ### 9.8. Ficheros
 
 Importación CSV con `TaskFileProcessor.process()` (lectura línea a línea, validación, registro de errores). Exportación CSV con `TaskFileExporter.export()`.
 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/file/TaskFileProcessor.kt#L20-L79
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/file/TaskFileProcessor.kt#L16-L80
 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/file/TaskFileExporter.kt#L9-L28
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/file/TaskFileExporter.kt#L8-L29
+
 ### 9.9. MongoDB
 
 Base `task_manager`, colecciones `task_history` y `file_processing_errors`. Solo inserción con `insertOne()`. Clases: 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/mongo/MongoTaskHistoryRepository.kt#L22-L41 
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/mongo/MongoTaskHistoryRepository.kt#L11-L44
 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/mongo/MongoErrorLogRepository.kt#L11-L32
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/mongo/MongoErrorLogRepository.kt#L9-L36
 
 ### 9.10. Base de datos relacional
 
 H2 embebido, dos tablas (`tasks` -> `assignees` con FK), CRUD completo, consultas parametrizadas con `PreparedStatement`. Cierre automático con `use()`.
 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/sql/SqlTaskRepository.kt#L1-L140
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/sql/SqlTaskRepository.kt#L1-L140
 
 ### 9.11. Excepciones
 
 `NotFoundException` y `ValidationException`. Capturadas en `ConsoleUi.safeUi()` con mensajes informativos.
 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/exception/NotFoundException.kt#L1-L3
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/exception/NotFoundException.kt#L1-L3
 
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/exception/ValidationException.kt#L1-L3
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/exception/ValidationException.kt#L1-L3
 
 ### 9.12. SOLID y buenas prácticas
 
@@ -254,9 +255,9 @@ Cambio de println por logs, `object` para `Schema`/`H2Database`, nombres descrip
 ### 9.16. Patrones de diseño
 
 **Repository:** `TaskRepository` -> `SqlTaskRepository`.  
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/TaskRepository.kt#L9-L22   
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/repository/TaskRepository.kt#L10-L28 
 **DAO (Data Access Object):** `SqlTaskRepository` encapsula el acceso a H2 separando persistencia de negocio. `TaskHistoryLogger` con dos implementaciones demuestra polimorfismo vía interfaces.   
-https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/service/TaskHistoryLogger.kt#L1-L10
+https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/service/TaskHistoryLogger.kt#L1-L10
 
 ### 9.17. Documentación
 
