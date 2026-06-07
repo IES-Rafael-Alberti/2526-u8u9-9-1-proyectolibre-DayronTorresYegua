@@ -116,7 +116,7 @@ https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYe
   - Título: `^[\\p{L}0-9][\\p{L}0-9 _\\-]{1,98}[\\p{L}0-9]$`. Válido: `"Estudiar Kotlin"`. No válido: `" A"`.
   - Asignee: `^[\\p{L}][\\p{L} '.\\-]{1,58}[\\p{L}]$`. Válido: `"Ana María"`. No válido: `""`.
   
-    https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/validator/TaskValidator.kt#L10-L11
+    https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/741e541b26b2951dc01bb7728b61366fc7e4882c/src/main/kotlin/org/iesra/service/TaskHistoryLogger.kt#L1-L10
 - **Excepciones controladas:** MongoDB no disponible -> warning con Logback (no interrumpe). CSV inválido -> se salta la línea. Cierre automático con `use`.
 - **Excepciones propias:** `NotFoundException` (tarea no encontrada), `ValidationException` (datos inválidos). Capturadas en `ConsoleUi.safeUi()`.
 
@@ -155,8 +155,8 @@ https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYe
 
 | Problema | Solución aplicada | Enlace o evidencia |
 |----------|-------------------|--------------------|
-| Línea malformada detenía toda la importación | Procesar línea por línea con try/catch | https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/file/TaskFileProcessor.kt#L38-L64 |
-| MongoDB sin conexión lanzaba excepción | Capturar y loguear con Logback (warning) | https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/main/src/main/kotlin/org/iesra/repository/mongo/MongoTaskHistoryRepository.kt#L36-L41 |
+| Línea malformada detenía toda la importación | Procesar línea por línea con try/catch | https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/16fa8ce2adcf613e7fb8f2a31b5903e663cdd61d/src/main/kotlin/org/iesra/repository/file/TaskFileProcessor.kt#L38-L64 |
+| MongoDB sin conexión lanzaba excepción | Capturar y loguear con Logback (warning) | https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/16fa8ce2adcf613e7fb8f2a31b5903e663cdd61d/src/main/kotlin/org/iesra/repository/mongo/MongoTaskHistoryRepository.kt#L40-L42 |
 
 
 ## 9. Respuestas a los criterios de evaluación
