@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/P3WX0DWh)
 # Actividad: Proyecto Software en Kotlin con Persistencia
 
 - **ID actividad:** `2526_PRO_u9_proyecto`
@@ -327,15 +328,15 @@ La calificación de cada criterio usará esta escala:
 
 Antes de entregar, comprueba:
 
-- [ ] El proyecto compila y se ejecuta.
-- [ ] Hay clases propias, objetos, colecciones, genéricos, regex y excepciones.
-- [ ] Hay lectura o escritura de ficheros.
-- [ ] Hay conexión con MongoDB.
-- [ ] Hay conexión con base de datos relacional.
-- [ ] Hay operaciones CRUD y script SQL.
-- [ ] Hay instrucciones de ejecución.
-- [ ] Hay evidencias de funcionamiento.
-- [ ] `SOLUCION_2526_PRO_u9_proyecto.md` está completo.
-- [ ] Las respuestas incluyen enlaces al código.
-- [ ] El código está limpio y documentado.
-- [ ] El historial de Git muestra el desarrollo del proyecto.
+- [X] El proyecto compila y se ejecuta.
+- [X] Hay clases propias, objetos, colecciones, genéricos, regex y excepciones.
+- [X] Hay lectura o escritura de ficheros.
+- [X] Hay conexión con MongoDB.
+- [X] Hay conexión con base de datos relacional.
+- [X] Hay operaciones CRUD y script SQL.
+- [X] Hay instrucciones de ejecución.
+- [X] Hay evidencias de funcionamiento.
+- [X] `SOLUCION_2526_PRO_u9_proyecto.md` está completo.
+- [X] Las respuestas incluyen enlaces al código.
+- [X] El código está limpio y documentado.
+- [X] El historial de Git muestra el desarrollo del proyecto.
