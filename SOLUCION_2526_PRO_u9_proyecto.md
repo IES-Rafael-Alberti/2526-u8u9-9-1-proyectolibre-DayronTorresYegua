@@ -20,7 +20,8 @@
   - `validator/` (validaciones), 
   - `exception/` (errores), 
   - `app/` (UI), 
-  - `util/` (configuración)
+  - `util/` (configuración),
+  - `Main.kt` (punto de entrada principal),
 
 ## 2. Instalación y ejecución
 
@@ -28,7 +29,7 @@
 # Comandos necesarios para ejecutar el proyecto
 ./gradlew run
 ```
-- Tambien puedes directamente ir a app/Main.kt y ejecutarlo
+- Tambien puedes directamente ir a src/main/kotlin/org/iesra/Main.kt y ejecutarlo
 
 
 - **Requisitos previos:** JDK 21, Mongodb, h2
@@ -145,7 +146,7 @@ https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYe
   https://github.com/IES-Rafael-Alberti/2526-u8u9-9-1-proyectolibre-DayronTorresYegua/blob/babecb592b1bbe8ce7bb5ec7c0cbffdcd195f97d/src/main/kotlin/org/iesra/repository/sql/Schema.kt#L1-L29
 ## 7. Refactorización, documentación y Git
 
-- **Refactorizaciones aplicadas:** Pasar de uso de println para comprobar cosas a logs
+- **Refactorizaciones aplicadas:** Pasar de uso de println para comprobar cosas a logs, extracción de la lógica de arranque a `Application` separando el punto de entrada (`org/iesra/Main.kt`) de la inicialización (`org/iesra/app/Application.kt`), aplicando SRP
 - **Código limpio:** Nombres descriptivos, SRP, uso de `use` para recursos, sin duplicidad.
 - **Documentación:** Uso de kdoc para generar documentacion con dokka
 - **Control de versiones:** Commits realizados, falta el commits de las respuestas a este archivo
@@ -167,6 +168,7 @@ Completa cada criterio con una respuesta breve (Por ejemplo, si habla de clases 
 
 Gestor de tareas en consola. Entidades: `Task`, `TaskService`, `TaskRepository`. Funcionalidades: CRUD, filtrado, import/export CSV, historial MongoDB. Estructura en capas (model/service/repository/validator/exception/app/util) con responsabilidades ortogonales.
 
+con un `Main.kt` como entry point ligero que delega en `Application`.
 ### 9.2. Clases y objetos
 
 Las dos clases principales son `Task` (data class con 6 propiedades, inmutable) y `TaskService` (9 métodos públicos, depende de interfaces). Objetos singleton: `TaskValidator`, `Schema`, `H2Database`, `AppConfig`, `NoOpTaskHistoryLogger`.
@@ -289,10 +291,10 @@ Indica en cada criterio el nivel o puntuación que consideras que has alcanzado.
 
 ### 11.2. Entornos de Desarrollo
 
-| Criterio | Puntuación/Nivel | Justificación de la puntuación                                                               |
-|----------|---|----------------------------------------------------------------------------------------------|
-| Refactorización y código limpio |  5 | Cambio de println por logs, `object` para `Schema`/`H2Database`, nombres descriptivos, SRP.|
-| Patrones de diseño | 7.5 | Repository (TaskRepository → SqlTaskRepository) y DAO (SqlTaskRepository como acceso a datos) |
-| Documentación | 5 | Documentacion basica con kdoc y dokka                                                        |
-| Control de versiones | 5 | Github basico, pocos commits                                                                 |
-| Preguntas de evaluación de Entornos de Desarrollo | 7.5| He respondido con enlaces permanentes y justificando las preguntas                           |
+| Criterio | Puntuación/Nivel | Justificación de la puntuación                                                                                                                  |
+|----------|---|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| Refactorización y código limpio |  5 | Cambio de println por logs, `object` para `Schema`/`H2Database`, nombres descriptivos, separacion de logica de arranque y punto de entrada,SRP. |
+| Patrones de diseño | 7.5 | Repository (TaskRepository → SqlTaskRepository) y DAO (SqlTaskRepository como acceso a datos)                                                   |
+| Documentación | 5 | Documentacion basica con kdoc y dokka                                                                                                           |
+| Control de versiones | 5 | Github basico, pocos commits                                                                                                                    |
+| Preguntas de evaluación de Entornos de Desarrollo | 7.5| He respondido con enlaces permanentes y justificando las preguntas                                                                              |

@@ -18,7 +18,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("org.iesra.app.MainKt")
+    mainClass.set("org.iesra.MainKt")
 }
 
 kotlin {
